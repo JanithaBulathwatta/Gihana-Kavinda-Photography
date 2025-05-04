@@ -1,0 +1,977 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Gihan Kavinda Photography - Professional photographer capturing life's special moments">
+    <title>Gihan Kavinda Photography</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- AOS Animation Library -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css" rel="stylesheet">
+    <!-- Swiper JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.5/swiper-bundle.min.css">
+    <!-- LightGallery -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/css/lightgallery.min.css">
+    <style>
+        :root {
+            --primary-color: #1a1a1a;
+            --secondary-color: #f5f5f5;
+            --accent-color: #ff6b6b;
+            --text-color: #333;
+            --bg-color: #ffffff;
+            --card-bg: #f9f9f9;
+        }
+
+        .dark-mode {
+            --primary-color: #f5f5f5;
+            --secondary-color: #1a1a1a;
+            --accent-color: #ff6b6b;
+            --text-color: #f5f5f5;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .navbar {
+            background-color: var(--bg-color);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-dark {
+            background-color: var(--secondary-color);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .section-title {
+            position: relative;
+            color: var(--primary-color);
+            transition: color 0.3s ease;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            height: 3px;
+            width: 60px;
+            background-color: var(--accent-color);
+        }
+
+        .btn-primary {
+            background-color: var(--accent-color);
+            color: white;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.3);
+        }
+
+        .gallery-img {
+            transition: transform 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-img:hover {
+            transform: scale(1.02);
+        }
+
+        .social-icon {
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .social-icon:hover {
+            transform: translateY(-3px);
+            color: var(--accent-color);
+        }
+
+        /* 3D Effect Classes */
+        .perspective-container {
+            perspective: 1000px;
+        }
+
+        .tilt-element {
+            transition: transform 0.3s ease;
+            transform-style: preserve-3d;
+        }
+
+        /* Animated Cursor */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(255, 107, 107, 0.5);
+            pointer-events: none;
+            z-index: 9999;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: difference;
+            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+        }
+
+        /* Loader */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--bg-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader {
+            width: 48px;
+            height: 48px;
+            border: 5px solid var(--primary-color);
+            border-bottom-color: var(--accent-color);
+            border-radius: 50%;
+            animation: rotation 1s linear infinite;
+        }
+
+        @keyframes rotation {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Parallax effect */
+        .parallax {
+            position: relative;
+            overflow: hidden;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0) translateX(-50%); }
+            40% { transform: translateY(-30px) translateX(-50%); }
+            60% { transform: translateY(-15px) translateX(-50%); }
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--accent-color);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e65c5c;
+        }
+
+        /* Swiper customization */
+        .swiper-pagination-bullet {
+            background-color: var(--primary-color);
+            opacity: 0.5;
+        }
+
+        .swiper-pagination-bullet-active {
+            background-color: var(--accent-color);
+            opacity: 1;
+        }
+
+        .swiper-button-next, .swiper-button-prev {
+            color: var(--accent-color);
+        }
+
+        /* Image gallery masonry */
+        .gallery-masonry {
+            column-count: 3;
+            column-gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .gallery-masonry {
+                column-count: 2;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-masonry {
+                column-count: 1;
+            }
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 20px;
+            overflow: hidden;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Loader -->
+    <div class="loader-wrapper">
+        <div class="loader"></div>
+    </div>
+
+    <!-- Custom Cursor -->
+    <div class="custom-cursor"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar fixed w-full z-50 transition-all duration-300 py-4" id="navbar">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#" class="text-2xl font-bold flex items-center">
+                <img src="./pictures/logo1.png" alt="Gihan Kavinda Photography" class="h-10 mr-2">
+                gihan kavinda
+            </a>
+            <div class="hidden md:flex space-x-6">
+                <a href="#home" class="hover:text-red-500 transition-colors duration-300">Home</a>
+                <a href="#about" class="hover:text-red-500 transition-colors duration-300">About</a>
+                <a href="#gallery" class="hover:text-red-500 transition-colors duration-300">Gallery</a>
+                <a href="#services" class="hover:text-red-500 transition-colors duration-300">Services</a>
+                <a href="#contact" class="hover:text-red-500 transition-colors duration-300">Contact</a>
+            </div>
+            <div class="flex items-center space-x-4">
+                <button id="dark-mode-toggle" class="p-2 rounded-full bg-gray-200 dark:bg-gray-700 transition-colors duration-300">
+                    <i class="fas fa-moon text-gray-700 dark:hidden"></i>
+                    <i class="fas fa-sun text-yellow-400 hidden dark:block"></i>
+                </button>
+                <button class="md:hidden" id="menu-toggle">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white dark:bg-gray-900 w-full absolute top-full left-0 py-4 shadow-lg">
+            <div class="container mx-auto px-4 flex flex-col space-y-4">
+                <a href="#home" class="hover:text-red-500 transition-colors duration-300 py-2">Home</a>
+                <a href="#about" class="hover:text-red-500 transition-colors duration-300 py-2">About</a>
+                <a href="#gallery" class="hover:text-red-500 transition-colors duration-300 py-2">Gallery</a>
+                <a href="#services" class="hover:text-red-500 transition-colors duration-300 py-2">Services</a>
+                <a href="#contact" class="hover:text-red-500 transition-colors duration-300 py-2">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative h-screen flex items-center justify-center overflow-hidden">
+        <!-- Video Background -->
+        <div class="absolute inset-0 z-0">
+            <div class="absolute inset-0 bg-black opacity-50 z-10"></div>
+            <img src="./pictures/p4.jpeg" alt="Photography background" class="absolute w-full h-full object-cover">
+        </div>
+
+        <div class="container mx-auto px-4 z-20 text-white text-center">
+            <h1 class="text-5xl md:text-7xl font-bold mb-6" data-aos="fade-up" data-aos-delay="200">
+                Gihan Kavinda
+            </h1>
+            <p class="text-xl md:text-2xl mb-10 max-w-3xl mx-auto" data-aos="fade-up" data-aos-delay="400">
+                Capturing moments, creating memories, telling stories through my lens
+            </p>
+            <div class="flex justify-center space-x-4" data-aos="fade-up" data-aos-delay="600">
+                <a href="#gallery" class="btn-primary px-8 py-3 rounded-full font-medium flex items-center">
+                    <span>View Gallery</span>
+                    <i class="fas fa-arrow-right ml-2"></i>
+                </a>
+                <a href="#contact" class="bg-transparent border-2 border-white px-8 py-3 rounded-full font-medium hover:bg-white hover:text-gray-900 transition duration-300">
+                    Contact Me
+                </a>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="scroll-indicator">
+            <a href="#about" class="text-white">
+                <i class="fas fa-chevron-down text-2xl animate-bounce"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row items-center gap-12">
+                <div class="md:w-1/2 perspective-container" data-aos="fade-right">
+                    <div class="tilt-element">
+                        <img src="./pictures/p11.jpg" alt="Gihan Kavinda" class="w-full h-auto rounded-lg shadow-xl">
+                    </div>
+                </div>
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <h2 class="section-title text-3xl font-bold mb-8">About Me</h2>
+                    <p class="mb-6 text-lg">
+                        Hello! I'm Gihan Kavinda, a passionate photographer based in Sri Lanka. With over 8 years of experience,
+                        I specialize in capturing life's most precious moments with creativity and authenticity.
+                    </p>
+                    <p class="mb-6 text-lg">
+                        My journey in photography began when I was just a teenager, fascinated by how a single image could tell
+                        a powerful story. Today, I bring that same enthusiasm to every shoot, whether it's a wedding, portrait,
+                        landscape, or commercial project.
+                    </p>
+                    <div class="flex flex-wrap gap-4 mb-8">
+                        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md flex items-center space-x-4 card">
+                            <div class="text-red-500 text-3xl">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Professional Equipment</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">High-end gear for the best results</p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md flex items-center space-x-4 card">
+                            <div class="text-red-500 text-3xl">
+                                <i class="fas fa-award"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Experience</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">8+ years professional experience</p>
+                            </div>
+                        </div>
+                        <div class="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-md flex items-center space-x-4 card">
+                            <div class="text-red-500 text-3xl">
+                                <i class="fas fa-edit"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-semibold">Post-Processing</h3>
+                                <p class="text-sm text-gray-600 dark:text-gray-300">Expert editing & color grading</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="flex space-x-5">
+                        <a href="#" class="social-icon text-2xl"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-icon text-2xl"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon text-2xl"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon text-2xl"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl font-bold mb-16 text-center" data-aos="fade-up">My Gallery</h2>
+            
+            <!-- Gallery Category Tabs -->
+            <div class="flex justify-center flex-wrap gap-4 mb-12" data-aos="fade-up">
+                <button class="gallery-filter-btn px-6 py-2 rounded-full bg-red-500 text-white font-medium" data-filter="all">All</button>
+                <button class="gallery-filter-btn px-6 py-2 rounded-full bg-gray-200 dark:bg-gray-700 font-medium" data-filter="weddings">Weddings</button>
+                <button class="gallery-filter-btn px-6 py-2 rounded-full bg-gray-200 dark:bg-gray-700 font-medium" data-filter="portraits">Portraits</button>
+                <button class="gallery-filter-btn px-6 py-2 rounded-full bg-gray-200 dark:bg-gray-700 font-medium" data-filter="nature">Nature</button>
+                <button class="gallery-filter-btn px-6 py-2 rounded-full bg-gray-200 dark:bg-gray-700 font-medium" data-filter="events">Events</button>
+            </div>
+            
+            <!-- Gallery Content -->
+            <div class="gallery-masonry" id="gallery-container" data-aos="fade-up">
+                <!-- Wedding Images -->
+                <div class="gallery-item" data-category="weddings">
+                    <a href="/api/placeholder/800/1200" class="gallery-img">
+                        <img src="./pictures/w1.jpg" alt="Wedding photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+                <div class="gallery-item" data-category="weddings">
+                    <a href="/api/placeholder/800/600" class="gallery-img">
+                        <img src="./pictures/w2.jpg" alt="Wedding photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+                <div class="gallery-item" data-category="weddings">
+                    <a href="/api/placeholder/800/800" class="gallery-img">
+                        <img src="./pictures/w3.jpg" alt="Wedding photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+                
+                <!-- Portrait Images -->
+                <div class="gallery-item" data-category="portraits">
+                    <a href="/api/placeholder/800/1000" class="gallery-img">
+                        <img src="./pictures/m1.jpg" alt="Portrait photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+                <div class="gallery-item" data-category="portraits">
+                    <a href="/api/placeholder/800/600" class="gallery-img">
+                        <img src="./pictures/m2.jpg" alt="Portrait photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+                <div class="gallery-item" data-category="portraits">
+                    <a href="/api/placeholder/800/900" class="gallery-img">
+                        <img src="./pictures/m3.jpg" alt="Portrait photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+                
+                <!-- Nature Images -->
+                <div class="gallery-item" data-category="nature">
+                    <a href="/api/placeholder/800/600" class="gallery-img">
+                        <img src="./pictures/p2.jpeg" alt="Nature photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+                <div class="gallery-item" data-category="nature">
+                    <a href="/api/placeholder/800/1100" class="gallery-img">
+                        <img src="./pictures/p9.jpg" alt="Nature photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+                <div class="gallery-item" data-category="nature">
+                    <a href="/api/placeholder/800/600" class="gallery-img">
+                        <img src="./pictures/p8.jpg" alt="Nature photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+                
+                <!-- Events Images -->
+                <div class="gallery-item" data-category="events">
+                    <a href="/api/placeholder/800/700" class="gallery-img">
+                        <img src="./pictures/i1.jpg" alt="Event photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <a href="/api/placeholder/800/600" class="gallery-img">
+                        <img src="./pictures/i2.jpg" alt="Event photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+                <div class="gallery-item" data-category="events">
+                    <a href="/api/placeholder/800/900" class="gallery-img">
+                        <img src="./pictures/i3.jpg" alt="Event photography" class="w-full h-auto rounded-lg shadow-md">
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Testimonial -->
+    <section class="parallax h-96 relative" style="background-image: url('./pictures/p4.jpeg');">
+        <div class="absolute inset-0 bg-black bg-opacity-60"></div>
+        <div class="container mx-auto px-4 h-full flex items-center justify-center relative z-10">
+            <div class="text-white text-center max-w-3xl" data-aos="fade-up">
+                <div class="text-5xl mb-6"><i class="fas fa-quote-left"></i></div>
+                <p class="text-xl md:text-2xl mb-8">
+                    "Gihan has an exceptional talent for capturing the essence of any moment. His photos tell stories in a way that words simply cannot. We're absolutely thrilled with our wedding photos!"
+                </p>
+                <div class="font-semibold text-lg">Nimal & Kumari</div>
+                <div class="text-sm text-gray-300">Wedding Clients</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl font-bold mb-16 text-center" data-aos="fade-up">My Services</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="100">
+                    <div class="h-40 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <i class="fas fa-heart text-red-500 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Wedding Photography</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Capturing your special day with a perfect blend of candid moments and artistically composed shots.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-red-500 font-semibold">Starting from LKR 50,000</span>
+                            <a href="#contact" class="text-sm font-medium text-red-500 hover:underline">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="200">
+                    <div class="h-40 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <i class="fas fa-user text-red-500 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Portrait Sessions</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Professional portrait photography that highlights your personality for individuals, couples, or families.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-red-500 font-semibold">Starting from LKR 15,000</span>
+                            <a href="#contact" class="text-sm font-medium text-red-500 hover:underline">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="300">
+                    <div class="h-40 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <i class="fas fa-glass-cheers text-red-500 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Event Coverage</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Comprehensive photography services for corporate events, parties, ceremonies, and special occasions.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-red-500 font-semibold">Starting from LKR 25,000</span>
+                            <a href="#contact" class="text-sm font-medium text-red-500 hover:underline">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="400">
+                    <div class="h-40 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <i class="fas fa-building text-red-500 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Commercial Photography</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            High-quality product and brand photography to showcase your business in the best possible light.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-red-500 font-semibold">Custom Quotes</span>
+                            <a href="#contact" class="text-sm font-medium text-red-500 hover:underline">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="500">
+                    <div class="h-40 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <i class="fas fa-mountain text-red-500 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Landscape Photography</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Capturing breathtaking natural landscapes and scenic beauty for art prints and decor.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-red-500 font-semibold">Prints from LKR 5,000</span>
+                            <a href="#contact" class="text-sm font-medium text-red-500 hover:underline">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="card bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden" data-aos="fade-up" data-aos-delay="600">
+                    <div class="h-40 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                        <i class="fas fa-graduation-cap text-red-500 text-5xl"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-3">Photography Workshops</h3>
+                        <p class="text-gray-600 dark:text-gray-300 mb-4">
+                            Learn photography techniques from an experienced professional through personalized workshops.
+                        </p>
+                        <div class="flex justify-between items-center">
+                            <span class="text-red-500 font-semibold">Starting from LKR 8,000</span>
+                            <a href="#contact" class="text-sm font-medium text-red-500 hover:underline">Inquire</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Work Process Section -->
+    <section class="py-20">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl font-bold mb-16 text-center" data-aos="fade-up">My Work Process</h2>
+            
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/4 p-6 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <div class="inline-block p-4 rounded-full bg-red-100 dark:bg-red-900 text-red-500 text-3xl mb-4">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">1. Consultation</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        We discuss your vision, requirements, and expectations to plan the perfect shoot.
+                    </p>
+                </div>
+                
+                <div class="md:w-1/4 p-6 text-center" data-aos="fade-up" data-aos-delay="200">
+                    <div class="inline-block p-4 rounded-full bg-red-100 dark:bg-red-900 text-red-500 text-3xl mb-4">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">2. Planning</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        We schedule the session and plan all the necessary details for a successful shoot.
+                    </p>
+                </div>
+                
+                <div class="md:w-1/4 p-6 text-center" data-aos="fade-up" data-aos-delay="300">
+                    <div class="inline-block p-4 rounded-full bg-red-100 dark:bg-red-900 text-red-500 text-3xl mb-4">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">3. Photoshoot</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        I capture beautiful moments with professional equipment and creative direction.
+                    </p>
+                </div>
+                
+                <div class="md:w-1/4 p-6 text-center" data-aos="fade-up" data-aos-delay="400">
+                    <div class="inline-block p-4 rounded-full bg-red-100 dark:bg-red-900 text-red-500 text-3xl mb-4">
+                        <i class="fas fa-magic"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">4. Editing & Delivery</h3>
+                    <p class="text-gray-600 dark:text-gray-300">
+                        Your photos are expertly edited and delivered in high-resolution digital format.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gray-50 dark:bg-gray-900">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title text-3xl font-bold mb-16 text-center" data-aos="fade-up">Get In Touch</h2>
+            
+            <div class="flex flex-col md:flex-row gap-10">
+                <div class="md:w-1/2" data-aos="fade-right">
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="name" class="block mb-2 text-sm font-medium">Your Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg border dark:bg-gray-700 dark:border-gray-600" placeholder="John Doe" required>
+                            </div>
+                            <div>
+                                <label for="email" class="block mb-2 text-sm font-medium">Your Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg border dark:bg-gray-700 dark:border-gray-600" placeholder="john@example.com" required>
+                            </div>
+                        </div>
+                        <div>
+                            <label for="phone" class="block mb-2 text-sm font-medium">Phone Number</label>
+                            <input type="tel" id="phone" class="w-full px-4 py-3 rounded-lg border dark:bg-gray-700 dark:border-gray-600" placeholder="+94 77 123 4567">
+                        </div>
+                        <div>
+                            <label for="service" class="block mb-2 text-sm font-medium">Service Interested In</label>
+                            <select id="service" class="w-full px-4 py-3 rounded-lg border dark:bg-gray-700 dark:border-gray-600">
+                                <option value="">Select a service</option>
+                                <option value="wedding">Wedding Photography</option>
+                                <option value="portrait">Portrait Sessions</option>
+                                <option value="event">Event Coverage</option>
+                                <option value="commercial">Commercial Photography</option>
+                                <option value="landscape">Landscape Photography</option>
+                                <option value="workshop">Photography Workshop</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="message" class="block mb-2 text-sm font-medium">Your Message</label>
+                            <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg border dark:bg-gray-700 dark:border-gray-600" placeholder="Tell me about your photography needs..."></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary px-8 py-3 rounded-lg font-medium w-full">Send Message</button>
+                    </form>
+                </div>
+                
+                <div class="md:w-1/2" data-aos="fade-left">
+                    <div class="bg-white dark:bg-gray-800 rounded-lg shadow-lg p-8">
+                        <h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-start space-x-4">
+                                <div class="text-red-500 text-xl mt-1">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Address</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">123 Photography Lane, Colombo, Sri Lanka</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="text-red-500 text-xl mt-1">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Phone</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">+94 77 123 4567</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="text-red-500 text-xl mt-1">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Email</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">contact@gihankavinda.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start space-x-4">
+                                <div class="text-red-500 text-xl mt-1">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-medium">Working Hours</h4>
+                                    <p class="text-gray-600 dark:text-gray-300">Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                    <p class="text-gray-600 dark:text-gray-300">Weekends: By appointment</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h4 class="font-medium mb-4">Connect With Me</h4>
+                            <div class="flex space-x-4">
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                                <a href="https://wa.me/94771234567" class="w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-700 flex items-center justify-center text-red-500 hover:bg-red-500 hover:text-white transition-colors duration-300">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/94771234567" class="fixed bottom-6 right-6 w-16 h-16 bg-green-500 rounded-full flex items-center justify-center text-white text-2xl shadow-lg z-50 hover:bg-green-600 transition-colors duration-300">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-6 md:mb-0">
+                    <a href="#" class="text-2xl font-bold flex items-center">
+                        <img src="./pictures/logo1.png" alt="Gihan Kavinda Photography Logo" class="h-10 mr-2">
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-purple-600">
+                            Gihan Kavinda
+                        </span>
+                    </a>
+                    <p class="mt-2 text-gray-400 max-w-md">
+                        Professional photographer based in Sri Lanka, specializing in weddings, portraits, events, and more.
+                    </p>
+                </div>
+                
+                <div class="flex flex-wrap gap-6 justify-center">
+                    <a href="#home" class="hover:text-red-500 transition-colors duration-300">Home</a>
+                    <a href="#about" class="hover:text-red-500 transition-colors duration-300">About</a>
+                    <a href="#gallery" class="hover:text-red-500 transition-colors duration-300">Gallery</a>
+                    <a href="#services" class="hover:text-red-500 transition-colors duration-300">Services</a>
+                    <a href="#contact" class="hover:text-red-500 transition-colors duration-300">Contact</a>
+                </div>
+                
+                <div class="mt-6 md:mt-0">
+                    <div class="flex space-x-4">
+                        <a href="#" class="social-icon text-lg">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-icon text-lg">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-icon text-lg">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon text-lg">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <a href="https://wa.me/0768424609" class="social-icon text-lg">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400">
+                    &copy; 2025 Gihan Kavinda Photography. All rights reserved.
+                </p>
+                <div class="mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-red-500 transition-colors duration-300 mr-4">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-red-500 transition-colors duration-300">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- AOS Animation Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <!-- Swiper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/9.0.5/swiper-bundle.min.js"></script>
+    <!-- LightGallery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/lightgallery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/zoom/lg-zoom.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/2.7.1/plugins/thumbnail/lg-thumbnail.min.js"></script>
+    <!-- Vanilla Tilt -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+
+    <script>
+        // Initialize AOS Animation
+        AOS.init({
+            duration: 800,
+            easing: 'ease',
+            once: true,
+            offset: 100
+        });
+
+        // Initialize LightGallery
+        lightGallery(document.getElementById('gallery-container'), {
+            selector: '.gallery-img',
+            speed: 500,
+            download: false,
+            counter: false
+        });
+
+        // Gallery Filter
+        const filterButtons = document.querySelectorAll('.gallery-filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Update active button
+                filterButtons.forEach(btn => {
+                    btn.classList.remove('bg-red-500', 'text-white');
+                    btn.classList.add('bg-gray-200', 'dark:bg-gray-700');
+                });
+                button.classList.remove('bg-gray-200', 'dark:bg-gray-700');
+                button.classList.add('bg-red-500', 'text-white');
+
+                // Filter gallery items
+                const filter = button.getAttribute('data-filter');
+                
+                galleryItems.forEach(item => {
+                    if (filter === 'all' || item.getAttribute('data-category') === filter) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // Mobile Menu Toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Dark Mode Toggle
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const html = document.documentElement;
+
+        // Check for saved theme preference or use device preference
+        if (localStorage.getItem('darkMode') === 'true' || 
+            (localStorage.getItem('darkMode') === null && 
+             window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+            document.body.classList.add('dark-mode');
+        }
+
+        darkModeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            document.body.classList.toggle('dark-mode');
+            
+            // Save preference
+            localStorage.setItem('darkMode', html.classList.contains('dark'));
+        });
+
+        // Custom cursor
+        const cursor = document.querySelector('.custom-cursor');
+
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        document.addEventListener('mousedown', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(0.8)';
+        });
+
+        document.addEventListener('mouseup', () => {
+            cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+        });
+
+        // Detect touch devices and hide custom cursor
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+            cursor.style.display = 'none';
+        }
+
+        // Initialize Vanilla Tilt
+        VanillaTilt.init(document.querySelectorAll(".tilt-element"), {
+            max: 5,
+            speed: 400,
+            glare: true,
+            "max-glare": 0.3
+        });
+
+        // Navbar Scroll Effect
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg', 'py-2');
+                navbar.classList.remove('py-4');
+            } else {
+                navbar.classList.remove('shadow-lg', 'py-2');
+                navbar.classList.add('py-4');
+            }
+        });
+
+        // Form Submission
+        const contactForm = document.getElementById('contact-form');
+        
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form values
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const service = document.getElementById('service').value;
+            const message = document.getElementById('message').value;
+            
+            // Here you would normally send the form data to a server
+            // For now, just show an alert
+            alert(`Thank you, ${name}! Your message has been received. I'll get back to you soon.`);
+            
+            // Reset form
+            contactForm.reset();
+        });
+
+        // Page Loader
+        window.addEventListener('load', () => {
+            const loader = document.querySelector('.loader-wrapper');
+            loader.style.opacity = '0';
+            setTimeout(() => {
+                loader.style.display = 'none';
+            }, 500);
+        });
+    </script>
+</body>
+</html>
